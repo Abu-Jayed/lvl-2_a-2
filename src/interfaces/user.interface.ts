@@ -1,5 +1,4 @@
 interface IUser {
-  userId: number
   username: string
   password: string // Hashed using bcrypt algorithm
   fullName: {

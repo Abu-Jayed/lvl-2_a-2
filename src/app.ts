@@ -1,5 +1,13 @@
 import express, { Request, Response } from 'express'
+import { userRoutes } from './routes/user.route'
+import cors from "cors"
+
 const app = express()
+
+app.use(express.json())
+app.use(cors())
+
+app.use("/api/users", userRoutes)
 
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({
@@ -8,21 +16,6 @@ app.get('/', (req: Request, res: Response) => {
   })
 })
 
-app.get('/api/users', (req: Request, res: Response) => {
-  const user = [
-    {
-      id: 1,
-      name: 'John',
-      email: 'john@example.com',
-    },
-  ]
 
-  res.status(200).json({
-    status: 'success',
-    message: "user fetched successfully",
-    data: user
-  })
-
-})
 
 export default app
