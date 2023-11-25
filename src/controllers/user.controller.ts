@@ -12,9 +12,85 @@ const createUser = async (req: Request, res: Response) => {
     const result = await userServices.createUser(userData)
 
     res.status(201).json({
-      status: 'success',
-      message: 'User created successfully',
+      success: true,
+      message: 'User created successfully!',
       data: result,
+    })
+  } catch (error: any) {
+    console.log(error)
+    res.status(500).json({
+      status: 'fail',
+      message: error.message || 'something went wrong',
+    })
+  }
+}
+
+const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const result = await userServices.getAllUsers()
+
+    res.status(200).json({
+      success: true,
+      message: 'Users fetched successfully!',
+      data: result,
+    })
+  } catch (error: any) {
+    console.log(error)
+    res.status(500).json({
+      status: 'fail',
+      message: error.message || 'something went wrong',
+    })
+  }
+}
+
+const getSingleUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId
+    const result = await userServices.getSingleUser(userId)
+
+    res.status(200).json({
+      success: true,
+      message: 'User fetched successfully!',
+      data: result,
+    })
+  } catch (error: any) {
+    console.log(error)
+    res.status(500).json({
+      status: 'fail',
+      message: error.message || 'something went wrong',
+    })
+  }
+}
+
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const userData = req.body
+    const userId = req.params.userId
+    const result = await userServices.updateUser(userId, userData)
+
+    res.status(200).json({
+      success: true,
+      message: 'User updated successfully!',
+      data: result,
+    })
+  } catch (error: any) {
+    console.log(error)
+    res.status(500).json({
+      status: 'fail',
+      message: error.message || 'something went wrong',
+    })
+  }
+}
+
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId
+    await userServices.deleteUser(userId)
+
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully!',
+      data: null,
     })
   } catch (error: any) {
     console.log(error)
@@ -27,4 +103,8 @@ const createUser = async (req: Request, res: Response) => {
 
 export const userController = {
   createUser,
+  getAllUsers,
+  getSingleUser,
+  updateUser,
+  deleteUser,
 }
