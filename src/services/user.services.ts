@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/user.model'
 
@@ -21,10 +22,17 @@ const updateUser = async (userId: string, userData: IUser): Promise<IUser | null
   return result
 }
 
-const deleteUser = async (userId:string) : Promise<IUser | null> => {
-  const result = await User.findByIdAndDelete(userId)
-  return result
-}
+const deleteUser = async (id: string): Promise<IUser | null> => {
+  console.log('userId:', id);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    // If userId is not a valid ObjectId, handle it accordingly
+    throw new Error('Invalid ObjectId');
+  }
+
+  const result = await User.findByIdAndDelete(id);
+  return result;
+};
 
 export const userServices = {
   createUser,

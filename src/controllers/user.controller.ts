@@ -80,27 +80,30 @@ const updateUser = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.log(error)
     res.status(500).json({
-      status: 'fail',
-      message: error.message || 'something went wrong',
+      success: false,
+      message: 'User not found',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     })
   }
 }
 
+
 const deleteUser = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId
-    await userServices.deleteUser(userId)
-
+    const id = req.params.id
+    await userServices.deleteUser(id)
     res.status(200).json({
-      success: true,
-      message: 'User deleted successfully!',
-      data: null,
+      status: 'success',
+      message: 'User deleted successfully',
     })
   } catch (error: any) {
     console.log(error)
     res.status(500).json({
       status: 'fail',
-      message: error.message || 'something went wrong',
+      message: error.message || 'Something went wrong',
     })
   }
 }
