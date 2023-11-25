@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express'
 import { userServices } from '../services/user.services'
+import mongoose from 'mongoose'
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -93,7 +94,20 @@ const updateUser = async (req: Request, res: Response) => {
 
 const deleteUser = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id
+    const id = req.params.userId
+
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      // If userId is not a valid ObjectId, handle it accordingly
+      console.error('Invalid ObjectId:', id);
+      return res.status(500).json({
+        status: 'fail',
+        message: 'unable to delete Something went wrong',
+      })
+    }
+
+
+    console.log("controller id", id);
     await userServices.deleteUser(id)
     res.status(200).json({
       status: 'success',

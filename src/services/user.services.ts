@@ -22,16 +22,12 @@ const updateUser = async (userId: string, userData: IUser): Promise<IUser | null
   return result
 }
 
-const deleteUser = async (id: string): Promise<IUser | null> => {
-  console.log('userId:', id);
+const deleteUser = async (userId: string): Promise<IUser | null> => {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    // If userId is not a valid ObjectId, handle it accordingly
-    console.error('Invalid ObjectId:', userId);
-    return null;
-  }
+  
 
-  const result = await User.findByIdAndDelete(id);
+  const result = await User.findByIdAndDelete(userId);
+  console.log("result", result);
   return result;
 };
 
