@@ -2,6 +2,11 @@ import { Schema, model } from "mongoose";
 import { IUser } from "../interfaces/user.interface";
 
 const userSchema = new Schema<IUser>({
+  userId: {
+    type: Number,
+    required: [true, "a unique identifier required"],
+    unique: true
+  },
   username: {
     type: String,
     required: [true, "Username is required"],
