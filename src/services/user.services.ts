@@ -27,7 +27,8 @@ const deleteUser = async (id: string): Promise<IUser | null> => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     // If userId is not a valid ObjectId, handle it accordingly
-    throw new Error('Invalid ObjectId');
+    console.error('Invalid ObjectId:', userId);
+    return null;
   }
 
   const result = await User.findByIdAndDelete(id);
