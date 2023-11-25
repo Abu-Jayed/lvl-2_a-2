@@ -1,14 +1,16 @@
 import app from './app'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import config from './config'
 
-const port = 5000
+const port = `${process.env.PORT}`
 
 // getting-started.js
 
 async function server() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/test')
-    console.log("connected to MongoDB");
+    await mongoose.connect(config.database_url)
+    console.log('connected to MongoDB')
     app.listen(port, () => {
       console.log(`Example app listening on port ${port}`)
     })

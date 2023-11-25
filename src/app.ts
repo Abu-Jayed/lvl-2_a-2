@@ -1,9 +1,11 @@
-import express from 'express';
+import express, { Request, Response } from 'express'
 const app = express()
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World Our Server Is Runing!')
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Successfully server running',
+  })
 })
 
 export default app
