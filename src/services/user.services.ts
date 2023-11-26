@@ -14,6 +14,7 @@ const getAllUsers = async (): Promise<IUser[]> => {
 
 const getSingleUser = async (userId: string): Promise<IUser | null> => {
   const result = await User.findById(userId)
+  console.log("getSingleUser from services", result);
   return result
 }
 
