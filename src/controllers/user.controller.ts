@@ -139,22 +139,31 @@ const deleteUser = async (req: Request, res: Response) => {
       // If userId is not a valid ObjectId, handle it accordingly
       console.error('Invalid ObjectId:', id)
       return res.status(500).json({
-        status: 'fail',
-        message: 'unable to delete Something went wrong',
+        success: false,
+        message: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
       })
     }
 
     console.log('controller id', id)
     await userServices.deleteUser(id)
     res.status(200).json({
-      status: 'success',
-      message: 'User deleted successfully',
+      success: true,
+      message: 'User deleted successfully!',
+      data: null,
     })
   } catch (error: any) {
     console.log(error)
     res.status(500).json({
-      status: 'fail',
-      message: error.message || 'Something went wrong',
+      success: false,
+        message: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
     })
   }
 }
