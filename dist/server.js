@@ -20,7 +20,7 @@ const port = config_1.default.port;
 function server() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect('mongodb://127.0.0.1:27017/test');
+            yield mongoose_1.default.connect(`${config_1.default.database_url}`);
             console.log('connected to MongoDB');
             app_1.default.listen(port, () => {
                 console.log(`Example app listening on port ${port}`);

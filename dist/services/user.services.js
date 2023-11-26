@@ -31,8 +31,14 @@ const updateUser = (userId, userData) => __awaiter(void 0, void 0, void 0, funct
     return result;
 });
 const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_model_1.default.findByIdAndDelete(userId);
-    return result;
+    try {
+        const result = yield user_model_1.default.findByIdAndDelete(userId);
+        console.log("result", result);
+        return result;
+    }
+    catch (error) {
+        console.log("delet error");
+    }
 });
 exports.userServices = {
     createUser,

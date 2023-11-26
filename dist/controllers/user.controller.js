@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const user_services_1 = require("../services/user.services");
+const mongoose_1 = __importDefault(require("mongoose"));
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
@@ -85,26 +89,38 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         console.log(error);
         res.status(500).json({
-            status: 'fail',
-            message: error.message || 'something went wrong',
+            success: false,
+            message: 'User not found',
+            error: {
+                code: 404,
+                description: 'User not found!',
+            },
         });
     }
 });
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = req.params.userId;
-        yield user_services_1.userServices.deleteUser(userId);
+        const id = req.params.userId;
+        if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
+            // If userId is not a valid ObjectId, handle it accordingly
+            console.error('Invalid ObjectId:', id);
+            return res.status(500).json({
+                status: 'fail',
+                message: 'unable to delete Something went wrong',
+            });
+        }
+        console.log("controller id", id);
+        yield user_services_1.userServices.deleteUser(id);
         res.status(200).json({
-            success: true,
-            message: 'User deleted successfully!',
-            data: null,
+            status: 'success',
+            message: 'User deleted successfully',
         });
     }
     catch (error) {
         console.log(error);
         res.status(500).json({
             status: 'fail',
-            message: error.message || 'something went wrong',
+            message: error.message || 'Something went wrong',
         });
     }
 });
