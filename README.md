@@ -8,7 +8,7 @@ Here user can post, find, update, delete.
 
 ## Authors
 
-- [@Abu-jayed](https://github.com/Abu-Jayed)
+- [@Abu-jayed](https://www.linkedin.com/in/abujayed/)
 
 
 ## Features
@@ -37,6 +37,7 @@ Install my-project with npm
 ```bash
   git clone https://github.com/Abu-Jayed/lvl-2_a-2
   npm i
+  npm run dev
 ```
     
 ## Environment Variables
