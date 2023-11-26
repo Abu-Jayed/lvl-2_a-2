@@ -56,12 +56,38 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.params.userId;
+        console.log('wrong userId: ' + userId);
+        if (!mongoose_1.default.Types.ObjectId.isValid(userId)) {
+            // If userId is not a valid ObjectId, handle it accordingly
+            console.error('Invalid ObjectId:', userId);
+            return res.status(500).json({
+                success: false,
+                message: 'User not found',
+                error: {
+                    code: 404,
+                    description: 'User not found!',
+                },
+            });
+        }
         const result = yield user_services_1.userServices.getSingleUser(userId);
-        res.status(200).json({
-            success: true,
-            message: 'User fetched successfully!',
-            data: result,
-        });
+        if (result) {
+            console.log('result form controller', result);
+            res.status(200).json({
+                success: true,
+                message: 'User fetched successfully!',
+                data: result,
+            });
+        }
+        else {
+            res.status(200).json({
+                success: false,
+                message: 'User not found',
+                error: {
+                    code: 404,
+                    description: 'User not found!',
+                },
+            });
+        }
     }
     catch (error) {
         console.log(error);
@@ -79,6 +105,18 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const userData = req.body;
         const userId = req.params.userId;
+        if (!mongoose_1.default.Types.ObjectId.isValid(userId)) {
+            // If userId is not a valid ObjectId, handle it accordingly
+            console.error('Invalid ObjectId:', userId);
+            return res.status(500).json({
+                success: false,
+                message: 'User not found',
+                error: {
+                    code: 404,
+                    description: 'User not found!',
+                },
+            });
+        }
         const result = yield user_services_1.userServices.updateUser(userId, userData);
         res.status(200).json({
             success: true,
@@ -109,7 +147,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 message: 'unable to delete Something went wrong',
             });
         }
-        console.log("controller id", id);
+        console.log('controller id', id);
         yield user_services_1.userServices.deleteUser(id);
         res.status(200).json({
             status: 'success',

@@ -24,6 +24,7 @@ const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getSingleUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.default.findById(userId);
+    console.log("getSingleUser from services", result);
     return result;
 });
 const updateUser = (userId, userData) => __awaiter(void 0, void 0, void 0, function* () {
