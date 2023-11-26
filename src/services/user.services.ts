@@ -22,13 +22,15 @@ const updateUser = async (userId: string, userData: IUser): Promise<IUser | null
   return result
 }
 
-const deleteUser = async (userId: string): Promise<IUser | null> => {
+const deleteUser = async (userId: string): Promise<IUser | undefined | null> => {
 
-  
-
+  try {
   const result = await User.findByIdAndDelete(userId);
   console.log("result", result);
-  return result;
+  return result; 
+  } catch (error) {
+    console.log("delet error");
+  }
 };
 
 export const userServices = {
