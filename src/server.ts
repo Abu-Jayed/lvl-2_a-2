@@ -6,7 +6,7 @@ const port = config.port
 
 // getting-started.js
 
-async function server() {
+function server() {
   try {
     mongoose.connect(`${config.database_url}`)
     console.log('connected to MongoDB')
@@ -19,4 +19,4 @@ async function server() {
   }
 }
 
-server().catch((err) => console.log(err))
+server()
