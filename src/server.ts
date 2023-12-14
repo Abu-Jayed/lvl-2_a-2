@@ -6,9 +6,9 @@ const port = config.port
 
 // getting-started.js
 
-function server() {
+async function server() {
   try {
-    mongoose.connect(`${config.database_url}`)
+    await mongoose.connect(`${config.database_url}`)
     console.log('connected to MongoDB')
     app.listen(port, () => {
       console.log(`Example app listening on port ${port}`)
